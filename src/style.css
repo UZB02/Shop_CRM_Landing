@@ -1,0 +1,105 @@
+@import "tailwindcss";
+
+@variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-emerald-50: #ecfdf5;
+  --color-emerald-100: #d1fae5;
+  --color-emerald-200: #a7f3d0;
+  --color-emerald-300: #6ee7b7;
+  --color-emerald-400: #34d399;
+  --color-emerald-500: #10b981;
+  --color-emerald-600: #059669;
+  --color-emerald-700: #047857;
+  --color-emerald-800: #065f46;
+  --color-emerald-900: #064e3b;
+}
+
+:root {
+  --bg-primary: #f8fafc;
+  --bg-secondary: #ffffff;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --border-color: #e2e8f0;
+}
+
+.dark {
+  --bg-primary: #020617;
+  --bg-secondary: #0f172a;
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --border-color: #1e293b;
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+  color-scheme: light;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+/* Theme transition logic */
+.theme-transition {
+  transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease;
+}
+
+/* Force colors on specific elements to ensure dark mode works */
+.bg-white { background-color: var(--bg-secondary) !important; }
+.bg-slate-50 { background-color: var(--bg-primary) !important; }
+.text-slate-900 { color: var(--text-primary) !important; }
+.text-slate-600 { color: var(--text-secondary) !important; }
+.border-slate-200 { border-color: var(--border-color) !important; }
+.dark\:bg-slate-900:where(.dark, .dark *) { background-color: var(--bg-secondary) !important; }
+.dark\:bg-slate-950:where(.dark, .dark *) { background-color: var(--bg-primary) !important; }
+
+.p-button.p-button-text:hover {
+  background: rgba(16, 185, 129, 0.1) !important;
+}
+
+.dark .p-button.p-button-text:hover {
+  background: rgba(16, 185, 129, 0.2) !important;
+}
+
+/* Entrance Animations */
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+main > * {
+  opacity: 0;
+  animation: fade-in-up 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+main > *:nth-child(1) { animation-delay: 0.1s; }
+main > *:nth-child(2) { animation-delay: 0.3s; }
+main > *:nth-child(3) { animation-delay: 0.5s; }
+
+.theme-icon-rotate-enter-active,
+.theme-icon-rotate-leave-active {
+  transition: all 0.3s ease;
+}
+
+.theme-icon-rotate-enter-from {
+  transform: rotate(-90deg) scale(0);
+  opacity: 0;
+}
+
+.theme-icon-rotate-leave-to {
+  transform: rotate(90deg) scale(0);
+  opacity: 0;
+}
