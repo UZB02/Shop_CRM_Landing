@@ -10,7 +10,7 @@
           Ko'p beriladigan <span class="text-primary italic">savollar</span>
         </h2>
         <p class="text-slate-500 dark:text-slate-400 font-medium text-lg max-w-xl mx-auto">
-          Shop CRM haqidagi asosiy savollarga qisqa va aniq javoblar
+          Sirius POS haqidagi asosiy savollarga qisqa va aniq javoblar
         </p>
       </div>
 
@@ -116,7 +116,7 @@ const defaultFaqs = [
   {
     id: 'd1',
     category: 'general',
-    question: 'Shop CRM qanday do\'konlar uchun mos keladi?',
+    question: 'Sirius POS qanday do\'konlar uchun mos keladi?',
     answer: 'Tizimimiz kiyim-kechak, oziq-ovqat, elektrotexnika, dorixona va boshqa barcha turdagi chakana savdo do\'konlari uchun moslashgan.'
   },
   {
@@ -129,7 +129,7 @@ const defaultFaqs = [
     id: 'd3',
     category: 'technical',
     question: 'Tizim internet siz ham ishlaydimi?',
-    answer: 'Shop CRM bulutli tizim bo\'lgani uchun internet talab etiladi, biroq qisqa muddatli uzilishlarda ma\'lumotlar keshlanadi.'
+    answer: 'Sirius POS bulutli tizim bo\'lgani uchun internet talab etiladi, biroq qisqa muddatli uzilishlarda ma\'lumotlar keshlanadi.'
   },
   {
     id: 'd4',

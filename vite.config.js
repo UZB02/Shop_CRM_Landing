@@ -13,9 +13,9 @@ export default defineConfig({
       injectRegister: 'auto',
       includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'masked-icon.svg', 'dashboard_3d_mockup.png'],
       manifest: {
-        name: 'Shop CRM Landing',
-        short_name: 'ShopCRM',
-        description: 'Shop CRM - Biznesingizni Professional Avtomatlashtiring',
+        name: 'Sirius POS Landing',
+        short_name: 'SiriusPOS',
+        description: 'Sirius POS - Savdo Biznesingizni Professional Avtomatlashtiring',
         theme_color: '#3b82f6',
         icons: [
           {

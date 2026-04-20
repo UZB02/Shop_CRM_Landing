@@ -47,7 +47,7 @@ const { isDark, toggleTheme } = useTheme()
 const { navLinks, features, plans, stats, testimonials, faqs, loading, fetchData } = useLandingData()
 
 // CRM Config
-const CRM_LOGIN_URL = 'https://app.shop-searem.uz/login'
+const CRM_LOGIN_URL = 'https://app.siriuspos.uz/login'
 
 // State
 const isMenuOpen = ref(false)

@@ -9,15 +9,13 @@
       "theme_light": "Yorug' rejim"
     },
     "hero": {
-      "title_part1": "Savdo Biznesingizni",
-      "title_highlight": "Professional Darajada",
-      "title_part2": "Avtomatlashtiring",
-      "description": "Kompyuter, oziq-ovqat, texnika do'konlari va boshqa barcha turdagi savdo markazlari uchun yagona boshqaruv tizimi.",
-      "start_free": "Bepul Boshlash",
-      "pricing": "Tariflar"
+      "badge": "Yangi avlod savdo tizimi",
+      "title": "Sirius POS — Savdo Biznesingizni Professional Avtomatlashtiring",
+      "subtitle": "Ombor, savdo, xodimlar va tahlillarni yagona Sirius POS tizimida boshqaring. Biznesingiz uchun eng yorqin va aniq yechim.",
+      "cta_start": "Bepul boshlash"
     },
     "features": {
-      "title": "Nega aynan Shop Searem?",
+      "title": "Nega aynan Sirius POS?",
       "subtitle": "Biznesingiz samaradorligini oshirish uchun kerakli barcha vositalar",
       "items": {
         "warehouse": {
@@ -57,11 +55,11 @@
     },
     "testimonials": {
       "title": "Mijozlarimiz fikrlari",
-      "subtitle": "Shop CRM tizimi orqali o'z biznesini rivojlantirayotgan tadbirkorlar tajribasi"
+      "subtitle": "Sirius POS tizimi orqali o'z biznesini rivojlantirayotgan tadbirkorlar tajribasi"
     },
     "faq": {
       "title": "Ko'p beriladigan savollar",
-      "subtitle": "Sizni qiziqtirgan savollarga javoblar"
+      "subtitle": "Sirius POS haqidagi asosiy savollarga qisqa va aniq javoblar"
     },
     "contact": {
       "title": "Savollaringiz bormi?",
@@ -75,6 +73,7 @@
       }
     },
     "footer": {
+      "about": "Sirius POS — savdo do'konlari uchun eng zamonaviy va professional avtomatlashtirish tizimi. Biznesingizning eng yorqin ko'rsatkichlari sari biz bilan boring.",
       "rights": "Barcha huquqlar himoyalangan."
     }
   }

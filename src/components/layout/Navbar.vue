@@ -5,10 +5,10 @@
         <!-- Logo Section -->
         <div class="flex items-center gap-3 group cursor-pointer" @click="$emit('scroll-to-top')">
           <div class="w-11 h-11 bg-primary rounded-xl flex items-center justify-center shadow-lg shadow-primary/20 group-hover:scale-110 transition-all">
-            <i class="pi pi-shopping-cart text-white text-xl"></i>
+            <i class="pi pi-star-fill text-white text-xl"></i>
           </div>
           <span class="text-xl font-black text-slate-900 dark:text-white tracking-tighter">
-            Shop <span class="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Searem</span>
+            Sirius <span class="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">POS</span>
           </span>
         </div>
 

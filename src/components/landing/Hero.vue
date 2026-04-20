@@ -19,15 +19,12 @@
           </div>
           
           <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 dark:text-white mb-8 leading-[1.1] tracking-tight">
-            {{ $t('landing.hero.title_part1') }}
-            <span class="block bg-gradient-to-r from-primary via-indigo-400 to-accent bg-clip-text text-transparent pb-1">
-              {{ $t('landing.hero.title_highlight') }}
-            </span>
-            {{ $t('landing.hero.title_part2') }}
+            Sirius <span class="bg-gradient-to-r from-primary via-indigo-400 to-accent bg-clip-text text-transparent pb-1">POS</span>
+            <span class="block text-3xl sm:text-4xl lg:text-5xl mt-2 opacity-90">{{ $t('landing.hero.title_suffix') }}</span>
           </h1>
           
           <p class="text-base sm:text-lg lg:text-xl text-slate-500 dark:text-slate-400 mb-12 max-w-xl mx-auto lg:mx-0 leading-relaxed font-medium">
-            {{ $t('landing.hero.description') }}
+            {{ $t('landing.hero.subtitle') }}
           </p>
 
           <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-5">
@@ -75,7 +72,7 @@
             <div class="glass-card p-2 sm:p-3 rounded-[2rem] sm:rounded-[2.5rem] hover-3d overflow-hidden ring-1 ring-white/20 dark:ring-white/10 will-change-transform">
               <img 
                 src="/dashboard_3d_mockup.png" 
-                alt="Shop CRM 3D Dashboard"
+                alt="Sirius POS - Professional Avtomatlashtirish"
                 fetchpriority="high"
                 class="rounded-[1.8rem] sm:rounded-[2rem] w-full shadow-2xl"
               />
