@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen theme-transition">
+  <div class="min-h-screen theme-transition bg-mesh">
     <Navbar 
       :nav-links="navLinks" 
       :is-dark="isDark" 
@@ -12,9 +12,12 @@
     />
 
     <main>
-      <Hero @start="goToCRM" />
+      <Hero :stats="stats" @start="goToCRM" />
       <Features :features="features" />
-      <Pricing :plans="plans" @buy="handleBuy" />
+      <Pricing :plans="plans" :loading="loading" @buy="handleBuy" />
+      <Testimonials :testimonials="testimonials" :loading="loading" />
+      <FAQ :faqs="faqs" :loading="loading" />
+      <Contact />
     </main>
 
     <Footer :nav-links="navLinks" />
@@ -30,6 +33,9 @@ import Navbar from '@/components/layout/Navbar.vue'
 import Hero from '@/components/landing/Hero.vue'
 import Features from '@/components/landing/Features.vue'
 import Pricing from '@/components/landing/Pricing.vue'
+import Testimonials from '@/components/landing/Testimonials.vue'
+import FAQ from '@/components/landing/FAQ.vue'
+import Contact from '@/components/landing/Contact.vue'
 import Footer from '@/components/layout/Footer.vue'
 
 // Composables
@@ -38,7 +44,7 @@ import { useLandingData } from '@/composables/useLandingData'
 
 const { locale } = useI18n()
 const { isDark, toggleTheme } = useTheme()
-const { navLinks, features, plans, fetchPlans } = useLandingData()
+const { navLinks, features, plans, stats, testimonials, faqs, loading, fetchData } = useLandingData()
 
 // CRM Config
 const CRM_LOGIN_URL = 'https://app.shop-searem.uz/login'
@@ -47,7 +53,22 @@ const CRM_LOGIN_URL = 'https://app.shop-searem.uz/login'
 const isMenuOpen = ref(false)
 
 onMounted(() => {
-  fetchPlans()
+  fetchData()
+
+  // Scroll Reveal Logic
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('active')
+        observer.unobserve(entry.target) // Optimize: Stop observing once revealed
+      }
+    })
+  }, { 
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px' // Trigger slightly before it enters view
+  })
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el))
 })
 
 const toggleLang = () => {

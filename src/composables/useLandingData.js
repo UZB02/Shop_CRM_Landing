@@ -1,17 +1,28 @@
 import { ref, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { subscriptionAPI } from '@/services/api'
+import { landingApi } from '@/api/landing'
 
 export function useLandingData() {
   const { t, tm } = useI18n()
   
   const loading = ref(false)
+  const stats = ref({
+    total_stores: 0,
+    total_workers: 0,
+    total_sales_count: 0,
+    active_subscriptions: 0,
+    cities_count: 0
+  })
   const remotePlans = ref([])
+  const testimonials = ref([])
+  const faqs = ref([])
 
   const navLinks = computed(() => [
     { text: t("landing.nav.features"), href: "#features", icon: "pi pi-star" },
     { text: t("landing.nav.pricing"), href: "#pricing", icon: "pi pi-tag" },
-    { text: t("landing.nav.about"), href: "#about", icon: "pi pi-info-circle" }
+    { text: "Mijozlar", href: "#testimonials", icon: "pi pi-users" },
+    { text: "FAQ", href: "#faq", icon: "pi pi-question-circle" },
+    { text: "Bog'lanish", href: "#contact", icon: "pi pi-envelope" }
   ])
 
   const features = computed(() => [
@@ -20,86 +31,98 @@ export function useLandingData() {
     { title: t("landing.features.items.branches.title"), icon: "pi pi-map-marker", desc: t("landing.features.items.branches.desc") }
   ])
 
-  const getPlanFeatures = (p) => {
-    const features = []
-    
-    // Limits
-    if (p.max_branches > 0) features.push(`${p.max_branches} ta filial`)
-    else if (p.max_branches === 0) features.push(`Cheksiz filallar`)
-
-    if (p.max_warehouses > 0) features.push(`${p.max_warehouses} ta ombor`)
-    else if (p.max_warehouses === 0) features.push(`Cheksiz omborlar`)
-
-    if (p.max_workers > 0) features.push(`${p.max_workers} ta xodim`)
-    else if (p.max_workers === 0) features.push(`Cheksiz xodimlar`)
-
-    if (p.max_products > 0) features.push(`${p.max_products} tagacha mahsulot`)
-    else if (p.max_products === 0) features.push(`Cheksiz mahsulotlar`)
-
-    // Feature Flags (Mapping based on main project pattern)
-    if (p.has_subcategory) features.push(t('landing.features.items.warehouse.title'))
-    if (p.has_sale_return) features.push("Sotuv qaytarmalari")
-    if (p.has_wastage) features.push("Mahsulot yaroqsizligi (Spisanie)")
-    if (p.has_stock_audit) features.push("Inventarizatsiya")
-    if (p.has_kpi) features.push("KPI va Xodimlar nazorati")
-    if (p.has_multi_currency) features.push("Ko'p valyutali hisob-kitob")
-    if (p.has_supplier) features.push("Ta'minotchilar bilan ishlash")
-    if (p.has_export) features.push("Excel/PDF hisobotlar")
-    if (p.has_dashboard) features.push("Analitik Dashboard")
-    if (p.has_telegram) features.push("Telegram bot orqali bildirishnomalar")
-    
-    return features
+  const featureLabels = {
+    has_sale_return:    "Tovar qaytarish",
+    has_export:         "Excel/PDF eksport",
+    has_kpi:            "KPI moduli",
+    has_supplier:       "Ta'minotchilar",
+    has_wastage:        "Isrof hisobi",
+    has_stock_audit:    "Inventarizatsiya",
+    has_multi_currency: "Ko'p valyuta",
+    has_qr_bulk:        "Ommaviy QR kod",
+    has_audit_log:      "Audit log",
+    has_telegram:       "Telegram bot",
+    has_dashboard:      "Dashboard",
+    has_subcategory:    "Subkategoriyalar",
   }
 
-  // Map remote plans to UI format, fallback to hardcoded if empty
+  const formatPrice = (price) => {
+    const num = parseFloat(price)
+    if (num === 0) return "Bepul"
+    return num.toLocaleString('uz-UZ')
+  }
+
+  const getYearlyBenefit = (plan) => {
+    const monthly = parseFloat(plan.price_monthly)
+    const yearly  = parseFloat(plan.price_yearly)
+    if (monthly === 0) return null
+    const saved = (monthly * 12) - yearly
+    return saved > 0 ? saved.toLocaleString('uz-UZ') + " so'm tejaysiz" : null
+  }
+
+  const getPlanFeatures = (p) => {
+    const list = []
+    
+    // Limits
+    if (p.max_branches > 0) list.push(`${p.max_branches} ta filial`)
+    else if (p.max_branches === 0) list.push(`Cheksiz filiallar`)
+
+    if (p.max_warehouses > 0) list.push(`${p.max_warehouses} ta ombor`)
+    else if (p.max_warehouses === 0) list.push(`Cheksiz omborlar`)
+
+    if (p.max_workers > 0) list.push(`${p.max_workers} ta xodim`)
+    else if (p.max_workers === 0) list.push(`Cheksiz xodimlar`)
+
+    if (p.max_products > 0) list.push(`${p.max_products} tagacha mahsulot`)
+    else if (p.max_products === 0) list.push(`Cheksiz mahsulotlar`)
+
+    // Feature Flags mapping
+    if (p.features) {
+      Object.entries(p.features).forEach(([key, value]) => {
+        if (value && featureLabels[key]) {
+          list.push(featureLabels[key])
+        }
+      })
+    }
+    
+    return list
+  }
+
   const plans = computed(() => {
     if (remotePlans.value.length > 0) {
       return remotePlans.value.map(p => ({
         id: p.id,
         name: p.name,
-        // Formatting price
-        price: p.price_monthly === "0" || p.price_monthly === 0 ? t('landing.pricing.free') : new Intl.NumberFormat('uz-UZ').format(p.price_monthly),
+        price_monthly: formatPrice(p.price_monthly),
+        price_yearly: formatPrice(p.price_yearly),
+        benefit: getYearlyBenefit(p),
+        price: formatPrice(p.price_monthly), // default display
         unit: "oy",
-        desc: p.description || p.plan_type_display,
+        desc: p.description,
         features: getPlanFeatures(p),
-        popular: p.plan_type === 'enterprise' || p.is_popular
+        popular: p.plan_type === 'basic', // or logic from backend
+        plan_type: p.plan_type
       }))
     }
-
-    // Fallback/Placeholder while loading
-    return [
-      { 
-        name: t("landing.pricing.plans.startup.name"), 
-        price: "199,000", 
-        unit: "oy", 
-        desc: t("landing.pricing.plans.startup.desc"), 
-        features: tm("landing.pricing.plans.startup.features") 
-      },
-      { 
-        name: t("landing.pricing.plans.business.name"), 
-        price: "499,000", 
-        unit: "oy", 
-        desc: t("landing.pricing.plans.business.desc"), 
-        popular: true, 
-        features: tm("landing.pricing.plans.business.features") 
-      },
-      { 
-        name: t("landing.pricing.plans.annual.name"), 
-        price: "4,999,000", 
-        unit: "yil", 
-        desc: t("landing.pricing.plans.annual.desc"), 
-        features: tm("landing.pricing.plans.annual.features") 
-      }
-    ]
+    return []
   })
 
-  const fetchPlans = async () => {
+  const fetchData = async () => {
     loading.value = true
     try {
-      const response = await subscriptionAPI.getPlans()
-      remotePlans.value = response.data
+      const [statsRes, plansRes, testimonialsRes, faqRes] = await Promise.all([
+        landingApi.getStats(),
+        landingApi.getPlans(),
+        landingApi.getTestimonials(6),
+        landingApi.getFaq()
+      ])
+      
+      stats.value = statsRes
+      remotePlans.value = plansRes
+      testimonials.value = testimonialsRes
+      faqs.value = faqRes
     } catch (error) {
-      console.error("Failed to fetch plans:", error)
+      console.error("Failed to fetch landing data:", error)
     } finally {
       loading.value = false
     }
@@ -109,7 +132,10 @@ export function useLandingData() {
     navLinks,
     features,
     plans,
+    stats,
+    testimonials,
+    faqs,
     loading,
-    fetchPlans
+    fetchData
   }
 }

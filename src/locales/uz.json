@@ -36,45 +36,42 @@
     },
     "pricing": {
       "title": "Qulay Tariflar",
-      "subtitle": "Biznesingiz hajmiga mos keladigan tarifni tanlang",
-      "popular": "Mashhur",
-      "unit_month": "oy",
-      "unit_year": "yil",
-      "buy": "Sotib olish",
-      "free": "Bepul",
-      "free": "Bepul",
-      "plans": {
-        "startup": {
-          "name": "Startap",
-          "desc": "Kichik va yangi boshlangan bizneslar uchun ideal tanlov.",
-          "features": [
-            "1 ta filial",
-            "3 ta foydalanuvchi",
-            "Asosiy hisobotlar",
-            "Telegram bot integratsiyasi"
-          ]
-        },
-        "business": {
-          "name": "Biznes",
-          "desc": "O'sishda davom etayotgan o'rta va yirik tadbirkorlar uchun.",
-          "features": [
-            "Cheksiz filiallar",
-            "10 tagacha foydalanuvchi",
-            "Kengaytirilgan tahlillar",
-            "24/7 Priority support",
-            "API kirish"
-          ]
-        },
-        "annual": {
-          "name": "Yillik",
-          "desc": "Katta tejash va uzoq muddatli barqarorlikni xohlovchilar uchun.",
-          "features": [
-            "Cheksiz filiallar",
-            "Cheksiz foydalanuvchilar",
-            "Barcha VIP funksiyalar",
-            "2 oy mutlaqo bepul"
-          ]
-        }
+      "subtitle": "Biznesingiz o'sishi uchun mos rejani tanlang",
+      "monthly": "oyiga",
+      "yearly": "yiliga",
+      "choose": "Tanlash",
+      "popular": "Eng ommabop",
+      "save": "Tejashingiz",
+      "limits": {
+        "branches": "filialgacha",
+        "warehouses": "omborgacha",
+        "workers": "xodim",
+        "products": "mahsulot"
+      }
+    },
+    "stats": {
+      "stores": "Faol do'konlar",
+      "workers": "Xodimlar",
+      "cities": "Shaharlar",
+      "sales": "Jami savdolar"
+    },
+    "testimonials": {
+      "title": "Mijozlarimiz fikrlari",
+      "subtitle": "Shop CRM tizimi orqali o'z biznesini rivojlantirayotgan tadbirkorlar tajribasi"
+    },
+    "faq": {
+      "title": "Ko'p beriladigan savollar",
+      "subtitle": "Sizni qiziqtirgan savollarga javoblar"
+    },
+    "contact": {
+      "title": "Savollaringiz bormi?",
+      "subtitle": "Biz bilan bog'laning, mutaxassislarimiz sizga yordam berishadi.",
+      "form": {
+        "name": "To'liq ismingiz",
+        "phone": "Telefon raqamingiz",
+        "message": "Xabaringiz (ixtiyoriy)",
+        "submit": "Murojaat yuborish",
+        "sending": "Yuborilmoqda..."
       }
     },
     "footer": {
