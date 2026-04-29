@@ -1,72 +1,90 @@
 <template>
-  <section id="faq" class="py-32 relative overflow-hidden bg-[#030712]">
-    <!-- Background Layer (Isolated for performance) -->
-    <div class="absolute inset-0 bg-mesh opacity-50 pointer-events-none"></div>
-    <div class="absolute top-[30%] right-[-5%] w-[35%] h-[35%] bg-primary/5 rounded-full pointer-events-none"></div>
+  <section id="faq" class="py-20 lg:py-28 relative overflow-hidden">
+    <div class="absolute bottom-0 right-0 w-[400px] h-[400px] rounded-full pointer-events-none"
+      style="background: radial-gradient(circle, rgba(6,182,212,0.06) 0%, transparent 70%);">
+    </div>
 
-    <div class="max-w-7xl mx-auto px-6 relative z-10">
-      <div class="text-center mb-16 reveal active">
-        <h2 class="text-3xl md:text-5xl font-black text-slate-900 dark:text-white mb-6 leading-tight">
-          Ko'p beriladigan <span class="text-primary italic">savollar</span>
+    <div class="max-w-4xl mx-auto px-5 sm:px-8 lg:px-12 relative z-10">
+      <!-- Header -->
+      <div class="text-center mb-12 reveal-up active">
+        <div class="badge-premium mb-5">
+          <i class="pi pi-question-circle text-[10px]"></i>
+          FAQ
+        </div>
+        <h2 class="text-3xl md:text-4xl lg:text-5xl font-black text-zinc-900 dark:text-white mb-4">
+          Savollaringizga <span class="text-gradient">javob</span>
         </h2>
-        <p class="text-slate-500 dark:text-slate-400 font-medium text-lg max-w-xl mx-auto">
-          Sirius POS haqidagi asosiy savollarga qisqa va aniq javoblar
+        <p class="text-zinc-500 dark:text-zinc-400 text-base leading-relaxed max-w-md mx-auto">
+          Sirius POS haqidagi eng ko'p beriladigan savollarga qisqa va aniq javoblar.
         </p>
       </div>
 
-      <!-- Categories - Optimized -->
-      <div class="flex flex-wrap justify-center gap-2 mb-16 reveal active">
-        <button 
-          v-for="(label, key) in categories" 
+      <!-- Category tabs -->
+      <div class="flex flex-wrap justify-center gap-2 mb-10 reveal-up active" style="transition-delay:0.1s">
+        <button
+          v-for="(label, key) in categories"
           :key="key"
           @click="activeCategory = key"
-          class="px-5 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-[0.2em] transition-all duration-200"
-          :class="activeCategory === key ? 'bg-primary text-white shadow-md' : 'bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-500 dark:text-slate-400'"
+          class="px-4 py-2 rounded-xl text-[12px] font-bold transition-all border"
+          :class="activeCategory === key
+            ? 'bg-primary text-white border-primary shadow-md shadow-primary/20'
+            : 'bg-transparent text-zinc-500 dark:text-zinc-400 border-zinc-200 dark:border-white/[0.08] hover:border-primary/40'"
         >
           {{ label }}
         </button>
       </div>
 
-      <!-- FAQ Grid - High performance layout isolation -->
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 items-start reveal active">
-        <div v-if="loading" v-for="i in 6" :key="i" class="h-16 bg-white/5 dark:bg-white/5 rounded-2xl animate-pulse"></div>
-        
+      <!-- FAQ List -->
+      <div class="space-y-2.5 reveal-up active" style="transition-delay:0.15s">
+        <div v-if="loading" v-for="i in 6" :key="i"
+          class="h-14 glass-card rounded-xl animate-pulse">
+        </div>
+
         <template v-else>
-          <div 
-            v-for="faq in filteredFaqs" 
-            :key="faq.id" 
-            class="faq-item"
+          <div
+            v-for="(faq, index) in filteredFaqs"
+            :key="faq.id"
+            class="overflow-hidden rounded-2xl border transition-all duration-300"
+            :class="openFaqId === faq.id
+              ? 'border-primary/30 shadow-[0_0_20px_rgba(124,58,237,0.1)] bg-primary/[0.03] dark:bg-primary/[0.05]'
+              : 'border-zinc-200/70 dark:border-white/[0.07] glass-card hover:border-primary/20'"
           >
-            <div 
-              class="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 transition-shadow duration-300"
-              :class="{'ring-1 ring-primary/30 shadow-lg': openFaqId === faq.id}"
+            <button
+              @click="toggleFaq(faq.id)"
+              class="w-full flex items-center gap-5 px-6 py-4.5 text-left group"
+              style="padding-top:18px; padding-bottom:18px"
             >
-              <button 
-                @click="toggleFaq(faq.id)"
-                class="w-full flex items-center justify-between p-5 text-left active:bg-slate-50 dark:active:bg-slate-800"
+              <!-- Number -->
+              <span class="text-[12px] font-black shrink-0 w-7 text-center"
+                :class="openFaqId === faq.id ? 'text-primary' : 'text-zinc-300 dark:text-zinc-700'">
+                {{ String(index + 1).padStart(2, '0') }}
+              </span>
+
+              <span class="flex-1 text-[14px] font-semibold text-zinc-800 dark:text-zinc-100 pr-4 group-hover:text-primary dark:group-hover:text-primary-light transition-colors">
+                {{ faq.question }}
+              </span>
+
+              <div
+                class="w-7 h-7 rounded-lg flex items-center justify-center shrink-0 transition-all duration-300"
+                :class="openFaqId === faq.id
+                  ? 'bg-primary text-white rotate-45'
+                  : 'bg-zinc-100 dark:bg-white/[0.07] text-zinc-400'"
               >
-                <span class="font-bold text-sm sm:text-base text-slate-900 dark:text-white pr-6">
-                  {{ faq.question }}
-                </span>
-                <div 
-                  :class="[
-                    'w-8 h-8 rounded-lg flex items-center justify-center transition-transform duration-300 transform-gpu',
-                    openFaqId === faq.id ? 'bg-primary text-white rotate-180' : 'bg-slate-100 dark:bg-slate-800 text-slate-400'
-                  ]"
-                >
-                  <i class="pi pi-chevron-down text-[8px]"></i>
-                </div>
-              </button>
-              
-              <!-- Highly Optimized Animation -->
-              <div 
-                class="faq-answer-container"
-                :class="{ 'faq-answer-open': openFaqId === faq.id }"
-              >
-                <div class="faq-answer-inner overflow-hidden">
-                  <div class="px-5 pb-6 text-slate-500 dark:text-slate-400 leading-relaxed font-medium text-xs sm:text-sm border-t border-slate-100 dark:border-slate-800 mt-1 pt-4">
+                <i class="pi pi-plus text-[10px] font-black"></i>
+              </div>
+            </button>
+
+            <!-- Answer -->
+            <div
+              class="faq-answer"
+              :class="{ 'faq-answer-open': openFaqId === faq.id }"
+            >
+              <div class="faq-inner">
+                <div class="px-6 pb-5 ml-12">
+                  <div class="h-px bg-zinc-100 dark:bg-white/[0.06] mb-4"></div>
+                  <p class="text-zinc-500 dark:text-zinc-400 text-[13px] leading-relaxed">
                     {{ faq.answer }}
-                  </div>
+                  </p>
                 </div>
               </div>
             </div>
@@ -74,11 +92,17 @@
         </template>
       </div>
 
-      <!-- Still Have Questions? -->
-      <div class="mt-16 text-center reveal active">
-        <div class="inline-flex flex-col sm:flex-row items-center gap-4 p-4 rounded-2xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
-          <p class="text-sm font-bold text-slate-600 dark:text-slate-300 px-4">Sizda hali ham savollar bormi?</p>
-          <a href="#contact" class="px-6 py-2.5 bg-primary hover:bg-primary-dark text-white rounded-xl font-bold text-xs uppercase tracking-widest">
+      <!-- Bottom CTA -->
+      <div class="mt-12 text-center reveal-up active" style="transition-delay:0.25s">
+        <div class="glass-card inline-flex flex-col sm:flex-row items-center gap-4 px-6 py-4 rounded-2xl border border-zinc-200/60 dark:border-white/[0.06]">
+          <div class="flex items-center gap-2">
+            <div class="w-8 h-8 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center">
+              <i class="pi pi-comment text-primary text-[12px]"></i>
+            </div>
+            <span class="text-[13px] font-semibold text-zinc-600 dark:text-zinc-300">Boshqa savol bormi?</span>
+          </div>
+          <a href="#contact"
+            class="btn-primary relative overflow-hidden btn-shimmer px-6 py-2.5 rounded-xl text-[13px] font-bold whitespace-nowrap">
             Biz bilan bog'laning
           </a>
         </div>
@@ -91,104 +115,46 @@
 import { ref, computed } from 'vue'
 
 const props = defineProps({
-  faqs: {
-    type: Array,
-    required: true
-  },
-  loading: {
-    type: Boolean,
-    default: false
-  }
+  faqs:    { type: Array, required: true },
+  loading: { type: Boolean, default: false }
 })
 
 const activeCategory = ref('all')
-const openFaqId = ref(null)
+const openFaqId      = ref(null)
 
 const categories = {
-  all: 'Barchasi',
-  general: 'Umumiy',
-  pricing: 'Narxlar',
+  all:       'Barchasi',
+  general:   'Umumiy',
+  pricing:   'Narxlar',
   technical: 'Texnik',
-  features: 'Imkoniyatlar'
+  features:  'Imkoniyatlar',
 }
 
 const defaultFaqs = [
-  {
-    id: 'd1',
-    category: 'general',
-    question: 'Sirius POS qanday do\'konlar uchun mos keladi?',
-    answer: 'Tizimimiz kiyim-kechak, oziq-ovqat, elektrotexnika, dorixona va boshqa barcha turdagi chakana savdo do\'konlari uchun moslashgan.'
-  },
-  {
-    id: 'd2',
-    category: 'pricing',
-    question: 'Bepul sinov muddati mavjudmi?',
-    answer: 'Ha, ro\'yxatdan ochiqishingiz bilan sizga 14 kunlik bepul to\'liq imkoniyatli test muddati beriladi.'
-  },
-  {
-    id: 'd3',
-    category: 'technical',
-    question: 'Tizim internet siz ham ishlaydimi?',
-    answer: 'Sirius POS bulutli tizim bo\'lgani uchun internet talab etiladi, biroq qisqa muddatli uzilishlarda ma\'lumotlar keshlanadi.'
-  },
-  {
-    id: 'd4',
-    category: 'features',
-    question: 'Telegram orqali xabar yuborish imkoniyati bormi?',
-    answer: 'Ha, integratsiya orqali har bir savdo haqida xabarlarni yoki mijozlarga aksiyalar haqida xabar yuborishingiz mumkin.'
-  },
-  {
-    id: 'd5',
-    category: 'general',
-    question: 'Ma\'lumotlar xavfsizligi qanday ta\'minlanadi?',
-    answer: 'Barcha ma\'lumotlar shifrlangan holda xalqaro standartlarga javob beradigan xavfsiz serverlarda saqlanadi.'
-  },
-  {
-    id: 'd6',
-    category: 'pricing',
-    question: 'To\'lovlarni qanday usullarda amalga oshirsa bo\'ladi?',
-    answer: 'Click, Payme, Uzum orqali yoki pul o\'tkazish yo\'li bilan shartnoma asosida to\'lov qilish mumkin.'
-  }
+  { id:'d1', category:'general',   question:"Sirius POS qanday do'konlar uchun mos?",           answer:"Kiyim-kechak, oziq-ovqat, elektrotexnika, dorixona va boshqa barcha turdagi chakana savdo do'konlari uchun moslashgan." },
+  { id:'d2', category:'pricing',   question:"Bepul sinov muddati bormi?",                        answer:"Ha, ro'yxatdan o'tganingizdan so'ng 14 kunlik to'liq imkoniyatli bepul sinov muddati beriladi." },
+  { id:'d3', category:'technical', question:"Internet bo'lmasa tizim ishlaydimi?",               answer:"Sirius POS bulutli tizim bo'lgani uchun internet talab etiladi, biroq qisqa muddatli uzilishlarda ma'lumotlar keshlanadi." },
+  { id:'d4', category:'features',  question:"Telegram orqali xabar yuborish imkoni bormi?",      answer:"Ha, har bir savdo yoki aksiyalar haqida mijozlarga va sizga Telegram orqali xabar yuboriladi." },
+  { id:'d5', category:'general',   question:"Ma'lumotlar xavfsizligi qanday ta'minlanadi?",     answer:"Barcha ma'lumotlar AES-256 shifrlangan holda xalqaro standartlarga javob beradigan serverlarda saqlanadi." },
+  { id:'d6', category:'pricing',   question:"To'lov qanday usullarda amalga oshiriladi?",       answer:"Click, Payme, Uzum Nasiya orqali yoki bank o'tkazmasi yo'li bilan shartnoma asosida to'lov qilish mumkin." },
 ]
 
-const localFaqs = computed(() => {
-  return props.faqs && props.faqs.length > 0 ? props.faqs : defaultFaqs
-})
+const localFaqs    = computed(() => props.faqs?.length > 0 ? props.faqs : defaultFaqs)
+const filteredFaqs = computed(() => activeCategory.value === 'all' ? localFaqs.value : localFaqs.value.filter(f => f.category === activeCategory.value))
 
-const filteredFaqs = computed(() => {
-  if (activeCategory.value === 'all') return localFaqs.value
-  return localFaqs.value.filter(f => f.category === activeCategory.value)
-})
-
-const toggleFaq = (id) => {
-  openFaqId.value = openFaqId.value === id ? null : id
-}
+const toggleFaq = (id) => { openFaqId.value = openFaqId.value === id ? null : id }
 </script>
 
 <style scoped>
-.faq-item {
-  contain: layout; /* Layout Isolation for performance */
-}
-
-.faq-answer-container {
+.faq-answer {
   display: grid;
   grid-template-rows: 0fr;
   opacity: 0;
-  transition: grid-template-rows 250ms cubic-bezier(0.4, 0, 0.2, 1), opacity 200ms;
-  will-change: grid-template-rows, opacity;
+  transition: grid-template-rows 280ms cubic-bezier(0.4, 0, 0.2, 1), opacity 200ms ease;
 }
-
 .faq-answer-open {
   grid-template-rows: 1fr;
   opacity: 1;
 }
-
-.faq-answer-inner {
-  min-height: 0;
-}
-
-/* Specific background for FAQ to isolate radial gradient */
-.bg-mesh {
-  background: radial-gradient(circle at 0% 0%, #0f172a 0%, #1e1b4b 100%);
-}
+.faq-inner { min-height: 0; }
 </style>

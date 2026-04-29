@@ -1,45 +1,110 @@
 <template>
-  <footer class="py-16 bg-white dark:bg-slate-900 border-t border-slate-100 dark:border-slate-800 transition-colors duration-300">
-    <div class="max-w-7xl mx-auto px-4">
-      <div class="flex flex-col md:flex-row justify-between items-center gap-8 mb-12">
-        <div class="flex items-center gap-3">
-          <div class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center shadow-lg shadow-primary/20">
-            <i class="pi pi-star-fill text-white text-xl"></i>
+  <footer class="relative pt-20 pb-8 border-t border-zinc-200/60 dark:border-white/[0.06] overflow-hidden">
+    <!-- Background glow -->
+    <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-primary/5 rounded-full blur-[100px] pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 relative z-10">
+      <!-- Main Grid -->
+      <div class="grid grid-cols-2 md:grid-cols-6 gap-10 lg:gap-12 mb-16">
+
+        <!-- Brand -->
+        <div class="col-span-2">
+          <div class="flex items-center gap-2.5 mb-5">
+            <div class="w-8 h-8 bg-gradient-to-br from-primary to-violet rounded-lg flex items-center justify-center shadow-md">
+              <span class="text-white font-black text-sm" style="font-family:'Plus Jakarta Sans',sans-serif">S</span>
+            </div>
+            <span class="text-[16px] font-extrabold text-zinc-900 dark:text-white" style="font-family:'Plus Jakarta Sans',sans-serif">
+              Sirius <span class="text-gradient-subtle">POS</span>
+            </span>
           </div>
-          <span class="text-xl font-black text-slate-900 dark:text-white tracking-tighter">
-            Sirius <span class="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">POS</span>
-          </span>
-        </div>
-        
-        <div class="flex flex-wrap justify-center gap-8">
-          <a v-for="link in navLinks" :key="link.href" :href="link.href" class="text-slate-500 dark:text-slate-400 hover:text-primary transition-colors font-medium">
-            {{ link.text }}
-          </a>
+          <p class="text-zinc-500 dark:text-zinc-400 text-[13px] leading-relaxed mb-6 max-w-[220px]">
+            O'zbekistonning barcha tadbirkorlari uchun professional savdo tizimi.
+          </p>
+          <!-- Socials -->
+          <div class="flex gap-2">
+            <a
+              v-for="s in socials" :key="s.icon"
+              :href="s.href"
+              :title="s.label"
+              class="w-8 h-8 rounded-lg bg-zinc-100 dark:bg-white/[0.07] flex items-center justify-center text-zinc-500 dark:text-zinc-400 hover:bg-primary hover:text-white dark:hover:bg-primary transition-all text-[13px]"
+            >
+              <i :class="`pi pi-${s.icon}`"></i>
+            </a>
+          </div>
         </div>
 
-        <div class="flex gap-4">
-          <a href="#" class="w-10 h-10 border border-slate-200 dark:border-slate-800 rounded-full flex items-center justify-center text-slate-500 dark:text-slate-400 hover:bg-primary/10 hover:text-primary transition-all">
-            <i class="pi pi-telegram"></i>
-          </a>
-          <a href="#" class="w-10 h-10 border border-slate-200 dark:border-slate-800 rounded-full flex items-center justify-center text-slate-500 dark:text-slate-400 hover:bg-primary/10 hover:text-primary transition-all">
-            <i class="pi pi-instagram"></i>
-          </a>
+        <!-- Links columns -->
+        <div v-for="col in footerCols" :key="col.title">
+          <h5 class="text-[11px] font-extrabold text-zinc-900 dark:text-white uppercase tracking-[0.12em] mb-4 opacity-60">
+            {{ col.title }}
+          </h5>
+          <ul class="space-y-3">
+            <li v-for="item in col.links" :key="item.label">
+              <a
+                :href="item.href"
+                class="text-[13px] font-medium text-zinc-500 dark:text-zinc-400 hover:text-primary dark:hover:text-primary-light transition-colors"
+              >
+                {{ item.label }}
+              </a>
+            </li>
+          </ul>
         </div>
+
       </div>
 
-      <div class="text-center pt-8 border-t border-slate-100 dark:border-slate-800/50">
-        <p class="text-slate-400 dark:text-slate-500 text-sm font-medium">
-          &copy; {{ new Date().getFullYear() }} Sirius POS. {{ $t('landing.footer.rights') }}
+      <!-- Divider -->
+      <div class="section-divider mb-8"></div>
+
+      <!-- Bottom -->
+      <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
+        <p class="text-[12px] text-zinc-400 font-medium">
+          © {{ new Date().getFullYear() }} Sirius POS. {{ $t('landing.footer.rights') }}
         </p>
+        <div class="flex items-center gap-6">
+          <a href="#" class="text-[12px] text-zinc-400 hover:text-primary transition-colors">Maxfiylik siyosati</a>
+          <a href="#" class="text-[12px] text-zinc-400 hover:text-primary transition-colors">Foydalanish shartlari</a>
+          <span class="text-[12px] text-zinc-400 font-medium">🇺🇿 Made in Uzbekistan</span>
+        </div>
       </div>
     </div>
   </footer>
 </template>
 
 <script setup>
-import Button from 'primevue/button'
+defineProps({ navLinks: Array })
 
-defineProps({
-  navLinks: Array
-})
+const socials = [
+  { icon: 'telegram', href: '#', label: 'Telegram' },
+  { icon: 'instagram', href: '#', label: 'Instagram' },
+  { icon: 'youtube',   href: '#', label: 'YouTube' },
+]
+
+const footerCols = [
+  {
+    title: "Bo'limlar",
+    links: [
+      { label: 'Xususiyatlar',  href: '#features' },
+      { label: 'Narxlar',       href: '#pricing' },
+      { label: 'Sharhlar',      href: '#testimonials' },
+      { label: "Savollar",      href: '#faq' },
+    ]
+  },
+  {
+    title: 'Mahsulot',
+    links: [
+      { label: 'Savdo (POS)',      href: '#' },
+      { label: 'Omborxona',        href: '#' },
+      { label: 'Hisobotlar',       href: '#' },
+      { label: 'API',              href: '#' },
+    ]
+  },
+  {
+    title: "Bog'lanish",
+    links: [
+      { label: '+998 90 123 45 67',  href: 'tel:+998901234567' },
+      { label: 'info@siriuspos.uz',  href: 'mailto:info@siriuspos.uz' },
+      { label: 'Toshkent, Yunusobod', href: '#' },
+    ]
+  }
+]
 </script>

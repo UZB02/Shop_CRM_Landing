@@ -10,9 +10,15 @@
     },
     "hero": {
       "badge": "Yangi avlod savdo tizimi",
-      "title": "Sirius POS — Savdo Biznesingizni Professional Avtomatlashtiring",
+      "title": "Savdoni",
+      "title_highlight": "Professional",
+      "title_suffix": "Avtomatlashtiring",
       "subtitle": "Ombor, savdo, xodimlar va tahlillarni yagona Sirius POS tizimida boshqaring. Biznesingiz uchun eng yorqin va aniq yechim.",
-      "cta_start": "Bepul boshlash"
+      "start_free": "Bepul boshlash",
+      "pricing": "Tariflar",
+      "efficiency_val": "+32%",
+      "efficiency_label": "Samaradorlik",
+      "users_stat": "1K+ Foydalanuvchilar"
     },
     "features": {
       "title": "Nega aynan Sirius POS?",
