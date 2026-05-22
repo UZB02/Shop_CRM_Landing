@@ -88,7 +88,7 @@
               <span class="w-2.5 h-2.5 rounded-full bg-amber-500/80 ring-1 ring-amber-500/40"></span>
               <span class="w-2.5 h-2.5 rounded-full bg-emerald-500/80 ring-1 ring-emerald-500/40"></span>
               <div class="flex-1 mx-3 h-5 bg-white/[0.06] rounded-md flex items-center px-3">
-                <span class="text-[9px] text-zinc-500 font-mono">app.siriuspos.uz/dashboard</span>
+                <span class="text-[9px] text-zinc-500 font-mono">main.siriuspos.uz/dashboard</span>
               </div>
             </div>
 

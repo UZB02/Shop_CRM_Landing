@@ -58,7 +58,7 @@ const { locale } = useI18n()
 const { isDark, toggleTheme } = useTheme()
 const { navLinks, features, plans, stats, testimonials, faqs, loading, fetchData } = useLandingData()
 
-const CRM_LOGIN_URL = 'https://app.siriuspos.uz/login'
+const CRM_LOGIN_URL = 'https://main.siriuspos.uz/login'
 
 const isMenuOpen    = ref(false)
 const scrollProgress = ref(0)
