@@ -1,6 +1,6 @@
 const BASE = import.meta.env.VITE_API_BASE_URL 
   ? `${import.meta.env.VITE_API_BASE_URL}/landing` 
-  : 'https://shopcrmsystem-production.up.railway.app/api/v1/landing'
+  : 'https://api.siriuspos.uz/api/v1/landing'
 
 export const landingApi = {
   getStats: () => fetch(`${BASE}/stats/`).then(r => r.json()),
