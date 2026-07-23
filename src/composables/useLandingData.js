@@ -26,9 +26,9 @@ export function useLandingData() {
   ])
 
   const features = computed(() => [
-    { title: t("landing.features.items.warehouse.title"), icon: "pi pi-box", desc: t("landing.features.items.warehouse.desc") },
-    { title: t("landing.features.items.analytics.title"), icon: "pi pi-chart-line", desc: t("landing.features.items.analytics.desc") },
-    { title: t("landing.features.items.branches.title"), icon: "pi pi-map-marker", desc: t("landing.features.items.branches.desc") }
+    { title: t("landing.features.items.analytics.title"),  icon: "pi pi-chart-line", desc: t("landing.features.items.analytics.desc") },
+    { title: t("landing.features.items.warehouse.title"),  icon: "pi pi-box",        desc: t("landing.features.items.warehouse.desc") },
+    { title: t("landing.features.items.branches.title"),   icon: "pi pi-map-marker", desc: t("landing.features.items.branches.desc") }
   ])
 
   const featureLabels = {
@@ -62,21 +62,8 @@ export function useLandingData() {
 
   const getPlanFeatures = (p) => {
     const list = []
-    
-    // Limits
-    if (p.max_branches > 0) list.push(`${p.max_branches} ta filial`)
-    else if (p.max_branches === 0) list.push(`Cheksiz filiallar`)
 
-    if (p.max_warehouses > 0) list.push(`${p.max_warehouses} ta ombor`)
-    else if (p.max_warehouses === 0) list.push(`Cheksiz omborlar`)
-
-    if (p.max_workers > 0) list.push(`${p.max_workers} ta xodim`)
-    else if (p.max_workers === 0) list.push(`Cheksiz xodimlar`)
-
-    if (p.max_products > 0) list.push(`${p.max_products} tagacha mahsulot`)
-    else if (p.max_products === 0) list.push(`Cheksiz mahsulotlar`)
-
-    // Feature Flags mapping
+    // Feature Flags mapping (limits are shown separately as chips, not duplicated here)
     if (p.features) {
       Object.entries(p.features).forEach(([key, value]) => {
         if (value && featureLabels[key]) {
@@ -101,7 +88,11 @@ export function useLandingData() {
         desc: p.description,
         features: getPlanFeatures(p),
         popular: p.plan_type === 'basic', // or logic from backend
-        plan_type: p.plan_type
+        plan_type: p.plan_type,
+        max_branches:   p.max_branches,
+        max_warehouses: p.max_warehouses,
+        max_workers:    p.max_workers,
+        max_products:   p.max_products,
       }))
     }
     return []

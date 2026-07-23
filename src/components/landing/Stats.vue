@@ -26,7 +26,7 @@
           <!-- Number -->
           <div
             class="text-3xl lg:text-[2.5rem] font-black text-zinc-900 dark:text-white mb-1.5 leading-none"
-            style="font-family:'Plus Jakarta Sans',sans-serif"
+            style="font-family:'Outfit',sans-serif"
           >
             {{ item.display }}
           </div>
@@ -53,7 +53,7 @@ const statItems = computed(() => [
     display: (props.stats?.total_stores  || 500) + '+',
     label:   "Faol Do'kon",
     icon:    'pi pi-shop',
-    rgb:     '124,58,237',
+    rgb:     '16,185,129',
   },
   {
     display: props.stats?.total_workers > 1000
@@ -61,7 +61,7 @@ const statItems = computed(() => [
       : (props.stats?.total_workers || '3K+'),
     label:   'Faol Xodim',
     icon:    'pi pi-users',
-    rgb:     '6,182,212',
+    rgb:     '59,130,246',
   },
   {
     display: props.stats?.total_sales_count > 1000
@@ -75,7 +75,7 @@ const statItems = computed(() => [
     display: (props.stats?.cities_count || 30) + '+',
     label:   'Shahar',
     icon:    'pi pi-map-marker',
-    rgb:     '16,185,129',
+    rgb:     '5,150,105',
   },
 ])
 </script>

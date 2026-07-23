@@ -120,12 +120,12 @@ const props = defineProps({
 })
 
 const gradients = [
-  'linear-gradient(135deg,#7C3AED,#8B5CF6)',
-  'linear-gradient(135deg,#06b6d4,#0891b2)',
+  'linear-gradient(135deg,#10b981,#34d399)',
+  'linear-gradient(135deg,#3b82f6,#2563eb)',
   'linear-gradient(135deg,#f59e0b,#d97706)',
-  'linear-gradient(135deg,#10b981,#059669)',
+  'linear-gradient(135deg,#059669,#10b981)',
   'linear-gradient(135deg,#ef4444,#dc2626)',
-  'linear-gradient(135deg,#8B5CF6,#06b6d4)',
+  'linear-gradient(135deg,#0ea5e9,#3b82f6)',
 ]
 
 const defaults = [

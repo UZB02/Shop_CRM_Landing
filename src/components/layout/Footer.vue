@@ -10,10 +10,10 @@
         <!-- Brand -->
         <div class="col-span-2">
           <div class="flex items-center gap-2.5 mb-5">
-            <div class="w-8 h-8 bg-gradient-to-br from-primary to-violet rounded-lg flex items-center justify-center shadow-md">
-              <span class="text-white font-black text-sm" style="font-family:'Plus Jakarta Sans',sans-serif">S</span>
+            <div class="w-8 h-8 bg-white rounded-lg flex items-center justify-center shadow-md overflow-hidden p-0.5">
+              <img src="/pwa-192x192.png" alt="Sirius POS" class="w-full h-full object-contain" />
             </div>
-            <span class="text-[16px] font-extrabold text-zinc-900 dark:text-white" style="font-family:'Plus Jakarta Sans',sans-serif">
+            <span class="text-[16px] font-extrabold text-zinc-900 dark:text-white" style="font-family:'Outfit',sans-serif">
               Sirius <span class="text-gradient-subtle">POS</span>
             </span>
           </div>
@@ -75,7 +75,7 @@ defineProps({ navLinks: Array })
 
 const socials = [
   { icon: 'telegram', href: '#', label: 'Telegram' },
-  { icon: 'instagram', href: '#', label: 'Instagram' },
+  { icon: 'instagram', href: 'https://www.instagram.com/sirius_pos/', label: 'Instagram' },
   { icon: 'youtube',   href: '#', label: 'YouTube' },
 ]
 
@@ -101,9 +101,10 @@ const footerCols = [
   {
     title: "Bog'lanish",
     links: [
-      { label: '+998 90 123 45 67',  href: 'tel:+998901234567' },
+      { label: '+998 33 133-63-65',  href: 'tel:+998331336365' },
+      { label: '+998 33 133-63-68',  href: 'tel:+998331336368' },
       { label: 'info@siriuspos.uz',  href: 'mailto:info@siriuspos.uz' },
-      { label: 'Toshkent, Yunusobod', href: '#' },
+      { label: 'Namangan, Uzbekistan', href: '#' },
     ]
   }
 ]

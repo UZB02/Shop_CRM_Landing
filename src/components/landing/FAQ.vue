@@ -1,7 +1,7 @@
 <template>
   <section id="faq" class="py-20 lg:py-28 relative overflow-hidden">
     <div class="absolute bottom-0 right-0 w-[400px] h-[400px] rounded-full pointer-events-none"
-      style="background: radial-gradient(circle, rgba(6,182,212,0.06) 0%, transparent 70%);">
+      style="background: radial-gradient(circle, rgba(59,130,246,0.06) 0%, transparent 70%);">
     </div>
 
     <div class="max-w-4xl mx-auto px-5 sm:px-8 lg:px-12 relative z-10">
@@ -46,7 +46,7 @@
             :key="faq.id"
             class="overflow-hidden rounded-2xl border transition-all duration-300"
             :class="openFaqId === faq.id
-              ? 'border-primary/30 shadow-[0_0_20px_rgba(124,58,237,0.1)] bg-primary/[0.03] dark:bg-primary/[0.05]'
+              ? 'border-primary/30 shadow-[0_0_20px_rgba(16,185,129,0.1)] bg-primary/[0.03] dark:bg-primary/[0.05]'
               : 'border-zinc-200/70 dark:border-white/[0.07] glass-card hover:border-primary/20'"
           >
             <button

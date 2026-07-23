@@ -46,6 +46,12 @@
       "unit_year": "йил",
       "buy": "Сотиб олиш",
       "free": "Бепул",
+      "limits": {
+        "branches": "филиалгача",
+        "warehouses": "омборгача",
+        "workers": "ходим",
+        "products": "маҳсулот"
+      },
       "plans": {
         "startup": {
           "name": "Стартап",

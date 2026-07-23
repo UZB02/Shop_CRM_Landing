@@ -2,7 +2,7 @@
   <section id="how-it-works" class="py-20 lg:py-28 relative overflow-hidden">
     <!-- Background -->
     <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] rounded-full pointer-events-none"
-      style="background: radial-gradient(circle, rgba(124,58,237,0.06) 0%, transparent 70%);">
+      style="background: radial-gradient(circle, rgba(16,185,129,0.06) 0%, transparent 70%);">
     </div>
 
     <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
@@ -24,7 +24,7 @@
       <div class="relative">
         <!-- Connector line (desktop) -->
         <div class="hidden lg:block absolute top-[52px] left-[calc(16.67%+32px)] right-[calc(16.67%+32px)] h-px"
-          style="background: linear-gradient(90deg, rgba(124,58,237,0.4), rgba(6,182,212,0.4), rgba(245,158,11,0.4));">
+          style="background: linear-gradient(90deg, rgba(16,185,129,0.4), rgba(59,130,246,0.4), rgba(245,158,11,0.4));">
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-6">
@@ -94,10 +94,10 @@ const steps = [
     desc:        "30 soniyada telefon raqamingiz bilan ro'yxatdan o'ting. Hech qanday qo'shimcha hujjat kerak emas.",
     icon:        'pi pi-user-plus',
     time:        '30 soniya',
-    bg:          'linear-gradient(135deg, #7C3AED, #6D28D9)',
-    glow:        '#7C3AED',
-    borderColor: 'rgba(124,58,237,0.4)',
-    rgb:         '124,58,237',
+    bg:          'linear-gradient(135deg, #10b981, #059669)',
+    glow:        '#10b981',
+    borderColor: 'rgba(16,185,129,0.4)',
+    rgb:         '16,185,129',
   },
   {
     num:         '02',
@@ -105,10 +105,10 @@ const steps = [
     desc:        "Mahsulotlar, omborxona va xodimlarni kiriting. Biz sizga shablon va ko'rsatmalar beramiz.",
     icon:        'pi pi-cog',
     time:        '5-10 daqiqa',
-    bg:          'linear-gradient(135deg, #06b6d4, #0891b2)',
-    glow:        '#06b6d4',
-    borderColor: 'rgba(6,182,212,0.4)',
-    rgb:         '6,182,212',
+    bg:          'linear-gradient(135deg, #3b82f6, #2563eb)',
+    glow:        '#3b82f6',
+    borderColor: 'rgba(59,130,246,0.4)',
+    rgb:         '59,130,246',
   },
   {
     num:         '03',

@@ -3,7 +3,7 @@
     <!-- Glow background -->
     <div class="absolute inset-0 pointer-events-none">
       <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] rounded-full"
-        style="background: radial-gradient(ellipse, rgba(124,58,237,0.12) 0%, transparent 70%);">
+        style="background: radial-gradient(ellipse, rgba(16,185,129,0.12) 0%, transparent 70%);">
       </div>
     </div>
 
@@ -24,9 +24,29 @@
 
       <!-- Contact channels -->
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-10 reveal-up active" style="transition-delay:0.1s">
+        <!-- Phone (two numbers, one tile) -->
+        <div class="glass-card rounded-2xl p-4 flex items-center gap-3 border border-zinc-200/60 dark:border-white/[0.06] hover:border-primary/30 hover:-translate-y-0.5 transition-all group">
+          <div class="w-9 h-9 rounded-xl flex items-center justify-center shrink-0"
+            :style="`background: rgba(${phoneChannel.rgb},0.12); border: 1px solid rgba(${phoneChannel.rgb},0.25)`">
+            <i :class="`pi ${phoneChannel.icon}`" class="text-[14px]" :style="`color: rgba(${phoneChannel.rgb},1)`"></i>
+          </div>
+          <div class="min-w-0">
+            <div class="text-[10px] font-bold text-zinc-400 uppercase tracking-wider">{{ phoneChannel.label }}</div>
+            <a
+              v-for="num in phoneChannel.numbers"
+              :key="num.href"
+              :href="num.href"
+              class="block text-[12px] font-semibold text-zinc-700 dark:text-zinc-200 hover:text-primary transition-colors whitespace-nowrap"
+            >
+              {{ num.value }}
+            </a>
+          </div>
+        </div>
+
+        <!-- Email / Telegram -->
         <a
-          v-for="ch in channels"
-          :key="ch.label"
+          v-for="ch in otherChannels"
+          :key="ch.href"
           :href="ch.href"
           class="glass-card rounded-2xl p-4 flex items-center gap-3 border border-zinc-200/60 dark:border-white/[0.06] hover:border-primary/30 hover:-translate-y-0.5 transition-all group"
         >
@@ -34,9 +54,9 @@
             :style="`background: rgba(${ch.rgb},0.12); border: 1px solid rgba(${ch.rgb},0.25)`">
             <i :class="`pi ${ch.icon}`" class="text-[14px]" :style="`color: rgba(${ch.rgb},1)`"></i>
           </div>
-          <div>
+          <div class="min-w-0">
             <div class="text-[10px] font-bold text-zinc-400 uppercase tracking-wider">{{ ch.label }}</div>
-            <div class="text-[12px] font-semibold text-zinc-700 dark:text-zinc-200 group-hover:text-primary transition-colors">{{ ch.value }}</div>
+            <div class="text-[12px] font-semibold text-zinc-700 dark:text-zinc-200 group-hover:text-primary transition-colors truncate">{{ ch.value }}</div>
           </div>
         </a>
       </div>
@@ -95,6 +115,20 @@
             </div>
           </div>
 
+          <!-- Referral code -->
+          <div class="space-y-2">
+            <label class="block text-[11px] font-bold text-zinc-400 uppercase tracking-wider">Referal kodi (ixtiyoriy)</label>
+            <div class="relative">
+              <i class="pi pi-tag absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-400 text-[13px]"></i>
+              <input
+                v-model="form.referral_code"
+                type="text"
+                placeholder="SIRIUS2024"
+                class="w-full pl-10 pr-4 py-3 rounded-xl border text-[14px] font-medium outline-none transition-all bg-zinc-50 dark:bg-white/[0.05] border-zinc-200 dark:border-white/[0.08] text-zinc-900 dark:text-white placeholder-zinc-400 focus:border-primary focus:ring-2 focus:ring-primary/20"
+              />
+            </div>
+          </div>
+
           <!-- Message -->
           <div class="space-y-2">
             <label class="block text-[11px] font-bold text-zinc-400 uppercase tracking-wider">{{ $t('landing.contact.form.message') }}</label>
@@ -130,11 +164,20 @@ const loading    = ref(false)
 const errorMsg   = ref(null)
 const successMsg = ref(null)
 
-const form = reactive({ full_name: '', phone: '', message: '' })
+const form = reactive({ full_name: '', phone: '', referral_code: '', message: '' })
 
-const channels = [
-  { label: 'Telefon',  icon: 'pi-phone',    href: 'tel:+998901234567',       value: '+998 90 123 45 67', rgb: '124,58,237' },
-  { label: 'Email',    icon: 'pi-envelope', href: 'mailto:info@siriuspos.uz', value: 'info@siriuspos.uz', rgb: '6,182,212'  },
+const phoneChannel = {
+  label: 'Telefon',
+  icon: 'pi-phone',
+  rgb: '16,185,129',
+  numbers: [
+    { href: 'tel:+998331336365', value: '+998 33 133-63-65' },
+    { href: 'tel:+998331336368', value: '+998 33 133-63-68' },
+  ],
+}
+
+const otherChannels = [
+  { label: 'Email',    icon: 'pi-envelope', href: 'mailto:info@siriuspos.uz', value: 'info@siriuspos.uz', rgb: '59,130,246'  },
   { label: 'Telegram', icon: 'pi-telegram', href: 'https://t.me/siriuspos',   value: '@siriuspos',        rgb: '245,158,11' },
 ]
 
@@ -148,6 +191,7 @@ const handleSubmit = async () => {
     successMsg.value = res.message
     form.full_name = ''
     form.phone = ''
+    form.referral_code = ''
     form.message = ''
   } catch (err) {
     if (err.status === 429) {

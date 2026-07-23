@@ -2,7 +2,7 @@
   <section id="pricing" class="py-20 lg:py-28 relative overflow-hidden">
     <!-- Glow -->
     <div class="absolute top-1/2 left-1/4 -translate-y-1/2 w-[500px] h-[500px] rounded-full pointer-events-none"
-      style="background: radial-gradient(circle, rgba(124,58,237,0.07) 0%, transparent 70%);">
+      style="background: radial-gradient(circle, rgba(16,185,129,0.07) 0%, transparent 70%);">
     </div>
 
     <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 relative z-10">
@@ -40,94 +40,88 @@
       </div>
 
       <!-- Pricing Cards -->
-      <div v-if="loading" class="grid grid-cols-1 md:grid-cols-3 gap-5 max-w-5xl mx-auto">
-        <div v-for="i in 3" :key="i" class="h-[480px] glass-card rounded-2xl animate-pulse"></div>
+      <div v-if="loading" class="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-5xl mx-auto">
+        <div v-for="i in 3" :key="i" class="h-[420px] glass-card rounded-2xl animate-pulse"></div>
       </div>
 
-      <div v-else class="grid grid-cols-1 md:grid-cols-3 gap-5 max-w-5xl mx-auto items-stretch">
+      <div v-else class="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-5xl mx-auto items-stretch">
         <div
           v-for="(plan, index) in plans"
           :key="index"
-          class="reveal-up active relative flex flex-col rounded-2xl overflow-hidden transition-all duration-300 hover-lift group"
+          class="reveal-up active relative flex flex-col rounded-2xl transition-all duration-300 hover-lift group"
           :style="{ transitionDelay: `${index * 0.1}s` }"
           :class="plan.popular
-            ? 'border border-primary/40 shadow-[0_0_0_1px_rgba(124,58,237,0.1),0_0_40px_rgba(124,58,237,0.15)] bg-gradient-to-b from-primary/[0.06] to-transparent'
+            ? 'border border-primary/40 shadow-[0_0_0_1px_rgba(16,185,129,0.1),0_0_40px_rgba(16,185,129,0.15)] bg-gradient-to-b from-primary/[0.06] to-transparent'
             : 'glass-card border border-zinc-200/60 dark:border-white/[0.06]'"
         >
           <!-- Popular Badge -->
           <div v-if="plan.popular" class="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-primary to-transparent"></div>
-          <div v-if="plan.popular" class="absolute -top-3.5 left-1/2 -translate-x-1/2">
-            <span class="inline-flex items-center gap-1.5 px-4 py-1 rounded-full bg-primary text-white text-[9px] font-black uppercase tracking-wider shadow-lg">
+          <div v-if="plan.popular" class="absolute -top-3 left-1/2 -translate-x-1/2">
+            <span class="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-primary text-white text-[9px] font-black uppercase tracking-wider shadow-lg">
               <i class="pi pi-star-fill text-[8px]"></i>
-              Eng Ko'p Tanlangan
+              Ommabop
             </span>
           </div>
 
-          <div class="p-7 flex flex-col flex-1 mt-2">
+          <div class="p-5 flex flex-col flex-1 mt-2">
             <!-- Plan Header -->
-            <div class="mb-6">
-              <div class="flex items-center gap-2.5 mb-3">
-                <div class="w-9 h-9 rounded-xl flex items-center justify-center"
+            <div class="mb-4">
+              <div class="flex items-center gap-2 mb-1.5">
+                <div class="w-7 h-7 rounded-lg flex items-center justify-center shrink-0"
                   :class="plan.popular ? 'bg-primary/15 border border-primary/30' : 'bg-zinc-100 dark:bg-white/[0.07] border border-zinc-200 dark:border-white/[0.06]'">
-                  <i :class="['pi', plan.popular ? 'pi-star text-primary' : 'pi-shop text-zinc-400']" class="text-[14px]"></i>
+                  <i :class="['pi', plan.popular ? 'pi-star text-primary' : 'pi-shop text-zinc-400']" class="text-[12px]"></i>
                 </div>
-                <h3 class="text-lg font-extrabold text-zinc-900 dark:text-white">{{ plan.name }}</h3>
+                <h3 class="text-[15px] font-extrabold text-zinc-900 dark:text-white">{{ plan.name }}</h3>
               </div>
-              <p class="text-zinc-500 dark:text-zinc-400 text-[12px] leading-relaxed">{{ plan.desc }}</p>
+              <p class="text-zinc-500 dark:text-zinc-400 text-[11px] leading-snug line-clamp-2">{{ plan.desc }}</p>
             </div>
 
             <!-- Price -->
-            <div class="mb-6 pb-6 border-b border-zinc-100 dark:border-white/[0.06]">
+            <div class="mb-4 pb-4 border-b border-zinc-100 dark:border-white/[0.06]">
               <div class="flex items-baseline gap-1.5">
-                <span class="text-[38px] font-black tracking-tight" :class="plan.popular ? 'text-primary' : 'text-zinc-900 dark:text-white'" style="font-family:'Plus Jakarta Sans',sans-serif">
+                <span class="text-[26px] font-black tracking-tight" :class="plan.popular ? 'text-primary' : 'text-zinc-900 dark:text-white'" style="font-family:'Outfit',sans-serif">
                   {{ isYearly ? plan.price_yearly : plan.price_monthly }}
                 </span>
-                <div class="flex flex-col">
-                  <span class="text-[11px] font-bold text-zinc-400 uppercase">so'm</span>
-                  <span class="text-[10px] font-bold text-zinc-400">/ {{ isYearly ? 'yil' : 'oy' }}</span>
-                </div>
+                <span class="text-[10px] font-bold text-zinc-400 uppercase">so'm / {{ isYearly ? 'yil' : 'oy' }}</span>
               </div>
               <p v-if="isYearly" class="text-[10px] text-emerald-500 font-bold mt-1">
-                Yillik to'lovda {{ Math.round(20) }}% tejaysiz
+                Yillik to'lovda 20% tejaysiz
               </p>
             </div>
 
-            <!-- Limits -->
-            <div class="grid grid-cols-2 gap-2.5 mb-6">
-              <div v-for="(val, key) in {
+            <!-- Limits (compact chips) -->
+            <div class="flex flex-wrap gap-1.5 mb-4">
+              <span v-for="(val, key) in {
                 branches:   plan.max_branches,
                 warehouses: plan.max_warehouses,
                 workers:    plan.max_workers,
                 products:   plan.max_products,
               }" :key="key"
-                class="rounded-xl p-3 text-center"
-                :class="plan.popular ? 'bg-primary/[0.07] border border-primary/15' : 'bg-zinc-50 dark:bg-white/[0.04] border border-zinc-100 dark:border-white/[0.05]'"
+                class="inline-flex items-center rounded-lg px-2 py-1 text-[10.5px] font-bold"
+                :class="plan.popular ? 'bg-primary/[0.08] text-primary' : 'bg-zinc-50 dark:bg-white/[0.05] text-zinc-600 dark:text-zinc-300'"
               >
-                <div class="text-base font-extrabold" :class="plan.popular ? 'text-primary' : 'text-zinc-900 dark:text-white'">{{ val }}</div>
-                <div class="text-[9px] font-bold text-zinc-400 uppercase tracking-wider">{{ $t(`landing.pricing.limits.${key}`) }}</div>
-              </div>
+                <template v-if="val === 0">Cheksiz&nbsp;<span class="font-medium opacity-70 ml-0.5">{{ unlimitedNouns[key] }}</span></template>
+                <template v-else>{{ val }}&nbsp;<span class="font-medium opacity-70 ml-0.5">{{ $t(`landing.pricing.limits.${key}`) }}</span></template>
+              </span>
             </div>
 
-            <!-- Features -->
-            <div class="flex-grow space-y-2.5 mb-8">
-              <div v-for="feat in plan.features" :key="feat" class="flex items-start gap-2.5">
-                <div class="w-4 h-4 rounded-md flex items-center justify-center shrink-0 mt-0.5"
-                  :class="plan.popular ? 'bg-primary text-white' : 'bg-zinc-100 dark:bg-white/[0.08] text-zinc-500'">
-                  <i class="pi pi-check text-[8px] font-black"></i>
-                </div>
-                <span class="text-[13px] text-zinc-600 dark:text-zinc-300 font-medium">{{ feat }}</span>
+            <!-- Features (2-col compact) -->
+            <div class="flex-grow grid grid-cols-2 gap-x-3 gap-y-1.5 mb-5 content-start">
+              <div v-for="feat in plan.features" :key="feat" class="flex items-start gap-1.5">
+                <i class="pi pi-check text-[9px] mt-0.5 shrink-0" :class="plan.popular ? 'text-primary' : 'text-zinc-400'"></i>
+                <span class="text-[11.5px] leading-snug text-zinc-600 dark:text-zinc-300 font-medium">{{ feat }}</span>
               </div>
             </div>
 
             <!-- CTA -->
             <button
               @click="$emit('buy', plan)"
-              class="w-full py-3.5 rounded-xl font-bold text-[14px] transition-all duration-300 active:scale-95 flex items-center justify-center gap-2.5 mt-auto"
+              class="w-full py-2.5 rounded-xl font-bold text-[13px] transition-all duration-300 active:scale-95 flex items-center justify-center gap-2 mt-auto"
               :class="plan.popular
                 ? 'btn-primary btn-shimmer relative overflow-hidden'
                 : 'bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 hover:opacity-90'"
             >
-              Tanlash <i class="pi pi-arrow-right text-xs"></i>
+              Tanlash <i class="pi pi-arrow-right text-[11px]"></i>
             </button>
           </div>
         </div>
@@ -153,4 +147,11 @@ defineProps({ plans: Array, loading: Boolean })
 defineEmits(['buy'])
 
 const isYearly = ref(false)
+
+const unlimitedNouns = {
+  branches:   'filial',
+  warehouses: 'ombor',
+  workers:    'xodim',
+  products:   'mahsulot',
+}
 </script>

@@ -13,7 +13,9 @@ import uz_cy from './locales/uz_cy.json'
 
 const i18n = createI18n({
   legacy: false,
-  locale: localStorage.getItem('lang') || 'uz',
+  // Til almashtirish tugmasi vaqtincha olib tashlangan — shu payt uchun
+  // har doim 'uz' (lotin) ishlatiladi, avvalgi saqlangan tanlov e'tiborga olinmaydi.
+  locale: 'uz',
   fallbackLocale: 'uz',
   messages: {
     uz: uz,

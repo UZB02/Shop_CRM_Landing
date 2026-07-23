@@ -10,15 +10,15 @@
 
         <!-- Logo -->
         <div class="flex items-center gap-3 group cursor-pointer shrink-0" @click="$emit('scroll-to-top')">
-          <!-- Geometric Logo Mark -->
+          <!-- Logo Mark (real Sirius POS app icon) -->
           <div class="relative w-9 h-9 shrink-0">
-            <div class="absolute inset-0 bg-gradient-to-br from-primary to-primary-light rounded-xl rotate-3 opacity-60 group-hover:rotate-6 transition-transform duration-500"></div>
-            <div class="relative w-full h-full bg-gradient-to-br from-primary to-violet rounded-xl flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform duration-500">
-              <span class="text-white font-black text-base leading-none" style="font-family:'Plus Jakarta Sans',sans-serif">S</span>
+            <div class="absolute inset-0 bg-emerald-500 rounded-xl rotate-3 opacity-40 group-hover:rotate-6 transition-transform duration-500"></div>
+            <div class="relative w-full h-full bg-white rounded-xl flex items-center justify-center shadow-lg overflow-hidden p-1 group-hover:scale-105 transition-transform duration-500">
+              <img src="/pwa-192x192.png" alt="Sirius POS" class="w-full h-full object-contain" />
             </div>
           </div>
           <div class="leading-tight">
-            <span class="block text-[15px] font-extrabold text-zinc-900 dark:text-white tracking-tight" style="font-family:'Plus Jakarta Sans',sans-serif">
+            <span class="block text-[15px] font-extrabold text-zinc-900 dark:text-white tracking-tight" style="font-family:'Outfit',sans-serif">
               Sirius <span class="text-gradient-subtle">POS</span>
             </span>
             <span class="hidden sm:block text-[9px] font-bold text-zinc-400 uppercase tracking-[0.15em]">Enterprise SaaS</span>
@@ -48,26 +48,6 @@
             <transition name="theme-icon-rotate" mode="out-in">
               <i :key="isDark" :class="isDark ? 'pi pi-sun text-amber-400' : 'pi pi-moon text-indigo-500'" class="text-[16px]" />
             </transition>
-          </button>
-
-          <!-- Lang Toggle -->
-          <button
-            @click="$emit('toggle-lang')"
-            class="px-3 h-9 rounded-lg text-[12px] font-bold hover:bg-zinc-100 dark:hover:bg-white/[0.08] transition-all uppercase tracking-wider"
-            :class="locale === 'uz' ? 'text-primary' : 'text-zinc-400'"
-          >
-            {{ locale === 'uz' ? "O'Z" : 'ЎЗ' }}
-          </button>
-
-          <!-- Divider -->
-          <div class="w-px h-5 bg-zinc-200 dark:bg-white/10 mx-1"></div>
-
-          <!-- CTA -->
-          <button
-            @click="$emit('go-to-crm')"
-            class="btn-primary btn-shimmer relative px-5 h-9 rounded-xl text-[13px] font-bold overflow-hidden"
-          >
-            Kirish →
           </button>
         </div>
 
@@ -116,20 +96,6 @@
             <span class="text-[14px] font-semibold text-zinc-700 dark:text-zinc-200">{{ link.text }}</span>
           </a>
         </div>
-        <div class="px-4 pb-4 grid grid-cols-2 gap-2 border-t border-zinc-100 dark:border-white/[0.06] pt-3">
-          <button
-            @click="$emit('toggle-lang')"
-            class="py-3 bg-zinc-100 dark:bg-white/[0.08] rounded-xl text-[13px] font-bold text-zinc-600 dark:text-zinc-300"
-          >
-            {{ locale === 'uz' ? "O'ZBEK" : 'ЎЗБЕК' }}
-          </button>
-          <button
-            @click="$emit('go-to-crm')"
-            class="btn-primary py-3 rounded-xl text-[13px] font-bold"
-          >
-            Kirish →
-          </button>
-        </div>
       </div>
     </transition>
   </nav>
@@ -137,9 +103,6 @@
 
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from 'vue'
-import { useI18n } from 'vue-i18n'
-
-const { locale } = useI18n()
 
 defineProps({
   navLinks:   Array,
@@ -147,7 +110,7 @@ defineProps({
   isMenuOpen: Boolean
 })
 
-defineEmits(['toggle-theme', 'toggle-lang', 'toggle-menu', 'go-to-crm', 'scroll-to-top'])
+defineEmits(['toggle-theme', 'toggle-menu', 'scroll-to-top'])
 
 const isScrolled = ref(false)
 

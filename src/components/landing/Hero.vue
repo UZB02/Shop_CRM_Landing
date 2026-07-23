@@ -4,10 +4,10 @@
     <!-- Ambient Orbs -->
     <div class="absolute inset-0 pointer-events-none -z-10">
       <div class="absolute top-[-20%] left-[10%] w-[700px] h-[700px] rounded-full"
-        style="background: radial-gradient(circle, rgba(124,58,237,0.18) 0%, transparent 70%); filter: blur(1px);">
+        style="background: radial-gradient(circle, rgba(16,185,129,0.18) 0%, transparent 70%); filter: blur(1px);">
       </div>
       <div class="absolute top-[10%] right-[-5%] w-[500px] h-[500px] rounded-full"
-        style="background: radial-gradient(circle, rgba(6,182,212,0.12) 0%, transparent 70%); filter: blur(1px);">
+        style="background: radial-gradient(circle, rgba(59,130,246,0.12) 0%, transparent 70%); filter: blur(1px);">
       </div>
       <div class="absolute bottom-[-10%] left-[30%] w-[400px] h-[400px] rounded-full"
         style="background: radial-gradient(circle, rgba(245,158,11,0.07) 0%, transparent 70%); filter: blur(1px);">
@@ -46,7 +46,7 @@
           <!-- CTA Buttons -->
           <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 mb-14">
             <button
-              @click="$emit('start')"
+              @click="scrollToContact"
               class="btn-primary btn-shimmer relative w-full sm:w-auto px-8 py-3.5 rounded-xl text-[15px] font-bold flex items-center justify-center gap-2.5 overflow-hidden"
             >
               <i class="pi pi-bolt text-sm"></i>
@@ -76,7 +76,7 @@
 
           <!-- Outer glow ring -->
           <div class="absolute inset-0 -m-6 rounded-3xl opacity-30"
-            style="background: conic-gradient(from 180deg, rgba(124,58,237,0.4), rgba(6,182,212,0.3), rgba(245,158,11,0.2), rgba(124,58,237,0.4)); filter: blur(40px);">
+            style="background: conic-gradient(from 180deg, rgba(16,185,129,0.4), rgba(59,130,246,0.3), rgba(245,158,11,0.2), rgba(16,185,129,0.4)); filter: blur(40px);">
           </div>
 
           <!-- Browser Frame -->
@@ -115,7 +115,7 @@
                 <div class="flex items-end gap-1.5 h-[70px]">
                   <div v-for="(h, i) in chartBars" :key="i"
                     class="flex-1 rounded-t-md transition-all duration-1000"
-                    :style="`height:${h}%; background: ${i === 6 ? 'linear-gradient(to top, #7C3AED, #8B5CF6)' : 'rgba(124,58,237,0.25)'}`">
+                    :style="`height:${h}%; background: ${i === 6 ? 'linear-gradient(to top, #10b981, #34d399)' : 'rgba(16,185,129,0.25)'}`">
                   </div>
                 </div>
                 <div class="flex justify-between mt-2">
@@ -163,7 +163,7 @@
           <!-- Card 2: Users -->
           <div class="absolute -bottom-6 -left-8 z-20 animate-float" style="animation-delay:-3s">
             <div class="glass-card rounded-xl px-4 py-3 flex items-center gap-3 shadow-xl"
-              style="border-color: rgba(124,58,237,0.2)">
+              style="border-color: rgba(16,185,129,0.2)">
               <div class="flex -space-x-2 shrink-0">
                 <div v-for="(c, i) in avatarColors" :key="i"
                   class="w-7 h-7 rounded-lg border-2 border-white dark:border-zinc-900 flex items-center justify-center text-[10px] font-black text-white"
@@ -174,7 +174,7 @@
               <div>
                 <div class="text-[11px] font-extrabold text-zinc-900 dark:text-white">128 faol xodim</div>
                 <div class="w-full h-1 rounded-full mt-1.5" style="background:rgba(0,0,0,0.08)">
-                  <div class="h-full w-3/4 rounded-full" style="background:linear-gradient(to right,#7C3AED,#06b6d4)"></div>
+                  <div class="h-full w-3/4 rounded-full" style="background:linear-gradient(to right,#10b981,#3b82f6)"></div>
                 </div>
               </div>
             </div>
@@ -194,10 +194,12 @@
 
 <script setup>
 defineProps({ stats: { type: Object, default: () => ({}) } })
-defineEmits(['start'])
 
 const scrollToPricing = () => {
   document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' })
+}
+const scrollToContact = () => {
+  document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
 }
 
 const trustItems = [
@@ -208,18 +210,18 @@ const trustItems = [
 ]
 
 const mockStats = [
-  { label: "Bugungi savdo", value: "284",   rgb: "124,58,237" },
-  { label: "Daromad",       value: "4.2M",  rgb: "6,182,212" },
+  { label: "Bugungi savdo", value: "284",   rgb: "16,185,129" },
+  { label: "Daromad",       value: "4.2M",  rgb: "59,130,246" },
   { label: "Mijozlar",      value: "1.2K",  rgb: "245,158,11" },
 ]
 
 const chartBars = [45, 62, 38, 75, 55, 88, 95]
 
 const mockSales = [
-  { name: 'Akmal Saidov',    time: '2 daq oldin', amount: '245,000',  type: 'in',  color1: '#7C3AED', color2: '#8B5CF6' },
-  { name: 'Barno Karimova',  time: '5 daq oldin', amount: '89,500',   type: 'in',  color1: '#06b6d4', color2: '#0891b2' },
+  { name: 'Akmal Saidov',    time: '2 daq oldin', amount: '245,000',  type: 'in',  color1: '#10b981', color2: '#34d399' },
+  { name: 'Barno Karimova',  time: '5 daq oldin', amount: '89,500',   type: 'in',  color1: '#3b82f6', color2: '#2563eb' },
   { name: 'Jasur Toshmatov', time: '8 daq oldin', amount: '412,000',  type: 'in',  color1: '#f59e0b', color2: '#d97706' },
 ]
 
-const avatarColors = ['#7C3AED', '#06b6d4', '#f59e0b']
+const avatarColors = ['#10b981', '#3b82f6', '#f59e0b']
 </script>

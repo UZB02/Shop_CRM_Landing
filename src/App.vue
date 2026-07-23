@@ -20,14 +20,12 @@
         :is-dark="isDark"
         :is-menu-open="isMenuOpen"
         @toggle-theme="toggleTheme"
-        @toggle-lang="toggleLang"
         @toggle-menu="isMenuOpen = !isMenuOpen"
         @scroll-to-top="scrollToTop"
-        @go-to-crm="goToCRM"
       />
 
       <main>
-        <Hero     :stats="stats"   @start="goToCRM" />
+        <Hero     :stats="stats"   @start="scrollToContact" />
         <Stats    :stats="stats" />
         <Features :features="features" />
         <HowItWorks />
@@ -66,8 +64,6 @@ import { useLandingData } from '@/composables/useLandingData'
 const { locale } = useI18n()
 const { isDark, toggleTheme } = useTheme()
 const { navLinks, features, plans, stats, testimonials, faqs, loading, fetchData } = useLandingData()
-
-const CRM_LOGIN_URL = 'https://main.siriuspos.uz/login'
 
 const isMenuOpen    = ref(false)
 const scrollProgress = ref(0)
@@ -116,12 +112,11 @@ const toggleLang = () => {
   localStorage.setItem('lang', locale.value)
 }
 
-const handleBuy = (plan) => {
-  localStorage.setItem('selectedPlan', JSON.stringify(plan))
-  window.location.href = CRM_LOGIN_URL
+const scrollToContact = () => {
+  document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
 }
 
-const goToCRM = () => { window.location.href = CRM_LOGIN_URL }
+const handleBuy = () => scrollToContact()
 
 const scrollToTop = () => { window.scrollTo({ top: 0, behavior: 'smooth' }) }
 </script>
