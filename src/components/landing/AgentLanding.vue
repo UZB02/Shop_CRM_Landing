@@ -127,7 +127,7 @@
             </div>
           </div>
 
-          <template v-if="locationOptionsAvailable">
+          <template v-if="regionsList.length">
             <div class="grid grid-cols-2 gap-3">
               <div class="flex flex-col gap-1.5">
                 <label class="text-[10px] font-black text-zinc-400 dark:text-zinc-550 uppercase tracking-widest">Viloyat</label>
@@ -151,6 +151,8 @@
                 </select>
               </div>
             </div>
+          </template>
+          <template v-if="categoriesList.length">
             <div class="flex flex-col gap-1.5">
               <label class="text-[10px] font-black text-zinc-400 dark:text-zinc-550 uppercase tracking-widest">Do'kon kategoriyasi</label>
               <select
@@ -219,7 +221,6 @@ const fieldErrors = ref({})
 const regionsList = ref([])
 const districtsList = ref([])
 const categoriesList = ref([])
-const locationOptionsAvailable = ref(false)
 
 const availableDistricts = computed(() => {
   if (!form.value.region) return []
@@ -274,25 +275,31 @@ watch(formattedPhone2, (newVal) => {
   form.value.phone2 = digits ? `+998${digits}` : ''
 })
 
+// districts/ and store-categories/ have no public equivalent yet (only
+// /api/v1/regions/ is reachable without auth — confirmed the other two 404
+// at the top level and only exist superadmin-scoped) — fetch each
+// independently so a missing endpoint doesn't hide the ones that do work.
+const unwrap = async (res) => {
+  if (!res.ok) throw new Error('lookup failed')
+  const json = await res.json()
+  return Array.isArray(json) ? json : (json.results || [])
+}
+
 const fetchLocationOptions = async () => {
   try {
-    const [regionsRes, districtsRes, categoriesRes] = await Promise.all([
-      fetch(`${API_BASE}/regions/`),
-      fetch(`${API_BASE}/districts/`),
-      fetch(`${API_BASE}/store-categories/`)
-    ])
-    const unwrap = async (res) => {
-      if (!res.ok) throw new Error('lookup failed')
-      const json = await res.json()
-      return Array.isArray(json) ? json : (json.results || [])
-    }
-    regionsList.value = await unwrap(regionsRes)
-    districtsList.value = await unwrap(districtsRes)
-    categoriesList.value = await unwrap(categoriesRes)
-    locationOptionsAvailable.value = true
+    regionsList.value = await unwrap(await fetch(`${API_BASE}/regions/`))
   } catch (err) {
-    console.warn('Location options unavailable, hiding optional fields', err)
-    locationOptionsAvailable.value = false
+    console.warn('Regions unavailable', err)
+  }
+  try {
+    districtsList.value = await unwrap(await fetch(`${API_BASE}/districts/`))
+  } catch (err) {
+    console.warn('Districts unavailable', err)
+  }
+  try {
+    categoriesList.value = await unwrap(await fetch(`${API_BASE}/store-categories/`))
+  } catch (err) {
+    console.warn('Store categories unavailable', err)
   }
 }
 
