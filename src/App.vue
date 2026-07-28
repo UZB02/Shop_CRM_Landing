@@ -1,7 +1,7 @@
 <template>
   <div class="min-h-screen bg-cosmic bg-dot-grid theme-transition relative">
     <!-- Scroll Progress Bar -->
-    <div v-if="!isReferral" class="scroll-progress" :style="{ width: scrollProgress + '%' }"></div>
+    <div v-if="!isReferral && !isAgentLink" class="scroll-progress" :style="{ width: scrollProgress + '%' }"></div>
 
     <!-- Noise Overlay -->
     <div class="fixed inset-0 pointer-events-none z-50 opacity-[0.025] dark:opacity-[0.04]"
@@ -11,6 +11,11 @@
     <!-- REFERRAL LANDING SUBPAGE -->
     <div v-if="isReferral" class="w-full">
       <ReferralLanding :code="referralCode" />
+    </div>
+
+    <!-- AGENT LINK LANDING SUBPAGE -->
+    <div v-else-if="isAgentLink" class="w-full">
+      <AgentLanding :code="agentCode" />
     </div>
 
     <!-- STANDARD SYSTEM LANDING PAGES -->
@@ -56,6 +61,7 @@ import FAQ          from '@/components/landing/FAQ.vue'
 import Contact      from '@/components/landing/Contact.vue'
 import Footer       from '@/components/layout/Footer.vue'
 import ReferralLanding from '@/components/landing/ReferralLanding.vue'
+import AgentLanding from '@/components/landing/AgentLanding.vue'
 
 // Composables
 import { useTheme }       from '@/composables/useTheme'
@@ -72,6 +78,13 @@ const path = ref(window.location.pathname)
 const isReferral = computed(() => path.value.startsWith('/referral/'))
 const referralCode = computed(() => {
   if (!isReferral.value) return ''
+  const parts = path.value.split('/').filter(Boolean)
+  return parts[1] || ''
+})
+
+const isAgentLink = computed(() => path.value.startsWith('/agent/'))
+const agentCode = computed(() => {
+  if (!isAgentLink.value) return ''
   const parts = path.value.split('/').filter(Boolean)
   return parts[1] || ''
 })
